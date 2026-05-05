@@ -1,0 +1,54 @@
+name: dbt CI Pipeline
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  dbt-test:
+    name: Run dbt Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dbt-bigquery
+        run: |
+          pip install dbt-bigquery==1.11.0
+
+      - name: Set up dbt profiles
+        run: |
+          mkdir -p ~/.dbt
+          cat <<EOF > ~/.dbt/profiles.yml
+          dbt_pipeline:
+            target: dev
+            outputs:
+              dev:
+                type: bigquery
+                method: service-account-json
+                project: ${{ secrets.GCP_PROJECT_ID }}
+                dataset: chicago_taxi
+                threads: 4
+                keyfile_json: ${{ secrets.GCP_SA_KEY }}
+                timeout_seconds: 300
+          EOF
+
+      - name: dbt deps
+        run: dbt deps
+
+      - name: dbt compile
+        run: dbt compile
+
+      - name: dbt run
+        run: dbt run
+
+      - name: dbt test
+        run: dbt test
