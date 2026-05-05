@@ -1,0 +1,55 @@
+version: 2
+
+models:
+  - name: fct_taxi_trips
+    description: aggregated data about the trips
+    columns:
+      - name: trip_date
+        description: the date on which the trip started
+        data_tests:
+          - not_null
+      - name: payment_type
+        description: transaction method
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['Mobile', 'Way2ride','No Charge', 'Credit Card', 'Cash', 'Unknown', 'Dispute', 'Pcard', 'Prepaid', 'Prcard', 'Split']
+              config:
+                severity: warn
+      - name: total_trips
+        description: number of trips occured on that day
+        data_tests:
+          - not_null
+      - name: total_revenue
+        description: sum of amount recieved on that day using a specific payment method
+        data_tests:
+          - not_null
+      - name: total_fare
+        description: sum of logistics cost paid on a specific day using a specific payment method
+        data_tests:
+          - not_null
+  
+  - name: dim_payment_types
+    description: all payment types as a dimension table
+    columns:
+      - name: payment_type
+        description: payment mode
+        data_tests:
+          - unique
+          - not_null
+      - name: payment_label
+        description: decsribing the payment_type
+        data_tests:
+          - not_null
+      - name: payment_category
+        description: Online, offline or Other
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['Online','Offline','Other']
+              config:
+                severity: warn
+            
+              

@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: stg_chicago_taxi
+    description: "Chicago's Taxi driver's data"
+    columns:
+      - name: unique_key
+        description: "primary key"
+        data_tests:
+          - not_null
+      - name: trip_start_timestamp
+        description: "start time of the ride"
+        data_tests:
+          - not_null

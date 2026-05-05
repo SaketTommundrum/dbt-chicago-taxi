@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: chicago_taxi
+    database: bigquery-public-data
+    schema: chicago_taxi_trips
+    tables:
+      - name: taxi_trips
+        description: "Raw Chicago taxi trip data from the city of Chicago open data portal"

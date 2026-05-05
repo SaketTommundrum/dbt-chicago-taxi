@@ -1,0 +1,18 @@
+# dbt artifacts
+target/
+logs/
+.user.yml
+
+# credentials - never commit!
+profiles.yml
+
+# virtual environment
+dbt-env/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
