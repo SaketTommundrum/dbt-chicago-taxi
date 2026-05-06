@@ -125,6 +125,8 @@ dim_payment_types (table)
 
 ## 📊 Live Dashboard
 [View Looker Studio Dashboard →](https://datastudio.google.com/reporting/a383d026-a944-4180-8e25-918487d8223a)
+<img width="918" height="608" alt="image" src="https://github.com/user-attachments/assets/13f3e384-d392-41f4-9be7-bd49b85660b7" />
+
 
 ## 👤 Author
 
